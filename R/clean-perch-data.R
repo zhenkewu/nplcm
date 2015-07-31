@@ -155,24 +155,31 @@ clean_perch_data <- function(clean_options){
   # extract_data_raw() will NOT order pathogen_BrS_anyorder according to B->F->V:
   if (is.null(X_strat) && is.null(X_strat_val)){
     # no stratification:
-    X_strat_nm_tmp  <- c(case_def)
-    X_strat_val_tmp <- list(case_def_val)
+    X_strat_nm_tmp_case  <- c(case_def)
+    X_strat_val_tmp_case <- list(case_def_val)
+    
+    X_strat_nm_tmp_ctrl  <- c(ctrl_def)
+    X_strat_val_tmp_ctrl <- list(ctrl_def_val)
   }else{
     # stratify by levels of X_strat:
-    X_strat_nm_tmp  <- c(X_strat, case_def)
-    X_strat_val_tmp <- list(X_strat_val, case_def_val)
+    X_strat_nm_tmp_case  <- c(X_strat, case_def)
+    X_strat_val_tmp_case <- list(X_strat_val, case_def_val)
+    
+    X_strat_nm_tmp_ctrl  <- c(X_strat, ctrl_def)
+    X_strat_val_tmp_ctrl <- list(X_strat_val, ctrl_def_val)
   }
   datacase <- extract_data_raw(pathogen_BrS_anyorder,Specimen,Test,
-                               X_strat_nm_tmp,
-                               X_strat_val_tmp,
+                               X_strat_nm_tmp_case,
+                               X_strat_val_tmp_case,
                                extra_covariates = X_extra,
                                meas_dir,silent=TRUE)
   
   datactrl <- extract_data_raw(pathogen_BrS_anyorder,Specimen,Test,
-                               X_strat_nm_tmp,
-                               X_strat_val_tmp,
+                               X_strat_nm_tmp_ctrl,
+                               X_strat_val_tmp_ctrl,
                                extra_covariates = X_extra,
                                meas_dir,silent=TRUE)
+
   
   
   if (!is.null(extra_meas_nm)){
